@@ -1,0 +1,7 @@
+spring:
+  redis:
+    host: ${REDIS_HOST}
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}

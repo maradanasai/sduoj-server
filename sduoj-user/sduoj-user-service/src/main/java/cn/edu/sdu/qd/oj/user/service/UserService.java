@@ -10,7 +10,7 @@
 
 package cn.edu.sdu.qd.oj.user.service;
 
-import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
+//import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
 import cn.edu.sdu.qd.oj.common.entity.UserSessionDTO;
 import cn.edu.sdu.qd.oj.common.util.AssertUtils;
 import cn.edu.sdu.qd.oj.common.util.RedisConstants;
@@ -141,7 +141,7 @@ public class UserService {
 
         if (!emailUtil.isEmailEnable()) {
             userDO.setEmailVerified(1);
-            userDO.setRoles(PermissionEnum.USER.name);
+            //userDO.setRoles(PermissionEnum.USER.name);
         }
 
         // TODO: username 重复时插入失败的异常处理器
@@ -179,7 +179,7 @@ public class UserService {
         ).one();
         userDO.setEmailVerified(1);
         // 有角色时不更新 roles, 无时更新为 USER
-        userDO.setRoles(StringUtils.isNotBlank(userDO.getRoles()) ? null : PermissionEnum.USER.name);
+        //userDO.setRoles(StringUtils.isNotBlank(userDO.getRoles()) ? null : PermissionEnum.USER.name);
         AssertUtils.isTrue(userDao.updateById(userDO), ApiExceptionEnum.UNKNOWN_ERROR);
     }
 

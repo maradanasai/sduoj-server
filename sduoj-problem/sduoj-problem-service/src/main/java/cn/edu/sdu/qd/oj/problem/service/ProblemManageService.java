@@ -10,7 +10,7 @@
 
 package cn.edu.sdu.qd.oj.problem.service;
 
-import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
+//import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
 import cn.edu.sdu.qd.oj.checkpoint.dto.CheckpointDTO;
 import cn.edu.sdu.qd.oj.checkpoint.service.CheckpointManageService;
 import cn.edu.sdu.qd.oj.common.entity.UserSessionDTO;
@@ -128,12 +128,12 @@ public class ProblemManageService {
                                                                UserSessionDTO userSessionDTO) {
         LambdaQueryChainWrapper<ProblemManageListDO> query = problemManageListDao.lambdaQuery();
         // 超级管理员能查所有的题，其他只查 public 题或自己的题
-        if (PermissionEnum.SUPERADMIN.notIn(userSessionDTO)) {
+        /*if (PermissionEnum.SUPERADMIN.notIn(userSessionDTO)) {
             Long userId = Optional.ofNullable(userSessionDTO).map(UserSessionDTO::getUserId).orElse(null);
             query.and(o1 -> o1.eq(ProblemManageListDO::getIsPublic, 1)
                   .or(o2 -> o2.eq(ProblemManageListDO::getIsPublic, 0)
                                           .and(o3 -> o3.eq(ProblemManageListDO::getUserId, userId))));
-        }
+        }*/
         // 置排序条件
         Optional.ofNullable(reqDTO.getSortBy()).filter(StringUtils::isNotBlank).ifPresent(orderBy -> {
             switch (orderBy) {
@@ -191,7 +191,7 @@ public class ProblemManageService {
         ).eq(ProblemDO::getProblemCode, problem.getProblemCode()).one();
         // 特判题目权限
         AssertUtils.notNull(originalProblemDO, ApiExceptionEnum.PROBLEM_NOT_FOUND);
-        AssertUtils.isTrue(PermissionEnum.SUPERADMIN.in(userSessionDTO) || userSessionDTO.userIdEquals(originalProblemDO.getUserId()),
+        AssertUtils.isTrue(/*PermissionEnum.SUPERADMIN.in(userSessionDTO) ||*/ userSessionDTO.userIdEquals(originalProblemDO.getUserId()),
                 ApiExceptionEnum.USER_NOT_MATCHING);
         problem.setProblemId(originalProblemDO.getProblemId());
 
@@ -313,11 +313,11 @@ public class ProblemManageService {
     }
 
     public void deleteDescription(long id, UserSessionDTO userSessionDTO) {
-        if (PermissionEnum.SUPERADMIN.notIn(userSessionDTO)) {
+        /*if (PermissionEnum.SUPERADMIN.notIn(userSessionDTO)) {
             AssertUtils.isTrue(1 == problemDescriptionDao.lambdaQuery().eq(ProblemDescriptionDO::getId, id)
                     .eq(ProblemDescriptionDO::getUserId, userSessionDTO.getUserId())
                     .count(), ApiExceptionEnum.DESCRIPTION_NOT_FOUND, "或 非自己所属的题面");
-        }
+        }*/
         AssertUtils.isTrue(problemDescriptionDao.removeById(id), ApiExceptionEnum.UNKNOWN_ERROR);
     }
 }

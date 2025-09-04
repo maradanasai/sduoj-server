@@ -10,7 +10,7 @@
 
 package cn.edu.sdu.qd.oj.problem.controller;
 
-import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
+//import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
 import cn.edu.sdu.qd.oj.common.annotation.UserSession;
 import cn.edu.sdu.qd.oj.common.entity.ApiResponseBody;
 import cn.edu.sdu.qd.oj.common.entity.PageResult;
@@ -50,9 +50,9 @@ public class ProblemManageController {
                                         @UserSession UserSessionDTO userSessionDTO) {
         ProblemManageDTO problemManageDTO = this.problemManageService.queryByCode(problemCode);
         // 超级管理员一定能看所有题
-        if (PermissionEnum.SUPERADMIN.in(userSessionDTO)) {
+        /*if (PermissionEnum.SUPERADMIN.in(userSessionDTO)) {
             return problemManageDTO;
-        }
+        }*/
         // 非公开且非自己出的题看不了
         if (problemManageDTO.getIsPublic() == 0 && userSessionDTO.userIdNotEquals(problemManageDTO.getUserId())) {
             problemManageDTO = null;

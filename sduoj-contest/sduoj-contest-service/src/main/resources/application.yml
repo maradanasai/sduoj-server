@@ -1,0 +1,17 @@
+server:
+  port: 19011
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sduoj?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: sduoj
+    password: sduoj
+  redis:
+    host: localhost
+    port: 6379
+  application:
+    name: contest-service
+  main:
+    allow-bean-definition-overriding: true
+mybatis-plus:
+  type-aliases-package: cn.edu.sdu.qd.oj.**.entity

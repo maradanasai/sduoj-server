@@ -46,8 +46,8 @@ dependencyManagement {
         dependency("org.apache.commons:commons-pool2:${Versions.commonsPool}")
         dependency("cn.hutool:hutool-core:${Versions.hutool}")
         dependency("com.github.ben-manes.caffeine:caffeine:${Versions.caffeine}")
-        dependency("org.slf4j:slf4j-api:${Versions.slf4j}")
-        dependency("org.slf4j:slf4j-nop:${Versions.slf4j}")
+//        dependency("org.slf4j:slf4j-api:${Versions.slf4j}")
+//        dependency("org.slf4j:slf4j-nop:${Versions.slf4j}")
         dependency("com.fasterxml.jackson.core:jackson-core:${Versions.jackson}")
         dependency("com.fasterxml.jackson.core:jackson-databind:${Versions.jackson}")
         dependency("commons-codec:commons-codec:${Versions.commonsCodec}")
@@ -55,9 +55,9 @@ dependencyManagement {
         dependency("io.netty:netty-buffer:${Versions.netty}")
         dependency("junit:junit:${Versions.junit}")
         dependency("org.apache.httpcomponents:httpclient:${Versions.httpclient}")
-        dependency("org.apache.logging.log4j:log4j-to-slf4j:${Versions.log4j}")
-        dependency("org.apache.logging.log4j:log4j-api:${Versions.log4j}")
-        dependency("org.apache.logging.log4j:log4j-core:${Versions.log4j}")
+//        dependency("org.apache.logging.log4j:log4j-to-slf4j:${Versions.log4j}")
+//        dependency("org.apache.logging.log4j:log4j-api:${Versions.log4j}")
+//        dependency("org.apache.logging.log4j:log4j-core:${Versions.log4j}")
         dependency("org.javassist:javassist:${Versions.javassist}")
     }
 }
@@ -65,24 +65,24 @@ dependencyManagement {
 // 配置service工程
 val isService = project.name.contains(Regex("service|gateway|websocket"))
 if (isService) {
-    tasks.named("bootJar") {
-        (this as Jar).archiveFileName.set(project.name.replace("-service", "") + ".jar")
-        doLast {
-            copy {
-                from(archiveFile)
-                into(rootProject.buildDir)
-            }
-            archiveFile.get().asFile.delete()
-        }
-    }
-    tasks.classes {
-        doLast {
-            copy {
-                from("${rootProject.rootDir}/config/logback/")
-                into("${buildDir}/resources/main/")
-            }
-        }
-    }
+//    tasks.named("bootJar") {
+//        (this as Jar).archiveFileName.set(project.name.replace("-service", "") + ".jar")
+//        doLast {
+//            copy {
+//                from(archiveFile)
+//                into(rootProject.buildDir)
+//            }
+//            archiveFile.get().asFile.delete()
+//        }
+//    }
+//    tasks.classes {
+//        doLast {
+//            copy {
+//                from("${rootProject.rootDir}/config/logback/")
+//                into("${buildDir}/resources/main/")
+//            }
+//        }
+//    }
 } else {
     // 发布包到Maven仓库
     publishing {

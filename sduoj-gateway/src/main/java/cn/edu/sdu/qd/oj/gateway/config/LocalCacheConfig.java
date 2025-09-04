@@ -12,7 +12,6 @@ package cn.edu.sdu.qd.oj.gateway.config;
 
 import cn.edu.sdu.qd.oj.common.util.RedisConstants;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -22,6 +21,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -34,7 +34,7 @@ public class LocalCacheConfig {
     @Primary
     public CacheManager caffeineCacheManager() {
         SimpleCacheManager cacheManager = new SimpleCacheManager();
-        List<CaffeineCache> caches = Lists.newArrayList(
+        List<CaffeineCache> caches = Arrays.asList(
                 new CaffeineCache(RedisConstants.URL_TO_ROLES, Caffeine.newBuilder().recordStats().expireAfterWrite(60, TimeUnit.SECONDS).build()),
                 new CaffeineCache(RedisConstants.USER_ID_TO_ROLES, Caffeine.newBuilder().recordStats().expireAfterWrite(10, TimeUnit.SECONDS).build())
         );

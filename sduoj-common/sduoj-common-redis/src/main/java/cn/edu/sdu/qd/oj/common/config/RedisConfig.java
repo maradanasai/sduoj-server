@@ -53,8 +53,8 @@ public class RedisConfig {
     @Value("${spring.redis.port}")
     private int redisPort;
 
-    @Value("${spring.redis.password}")
-    private String redisPassword;
+//    @Value("${spring.redis.password}")
+//    private String redisPassword;
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -64,7 +64,7 @@ public class RedisConfig {
         RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
         configuration.setHostName(redisHost);
         configuration.setPort(redisPort);
-        Optional.ofNullable(redisPassword).filter(StringUtils::isNotEmpty).map(RedisPassword::of).ifPresent(configuration::setPassword);
+        //Optional.ofNullable(redisPassword).filter(StringUtils::isNotEmpty).map(RedisPassword::of).ifPresent(configuration::setPassword);
         return new LettuceConnectionFactory(configuration);
     }
 

@@ -34,10 +34,11 @@ public class RedisListenHandler extends MessageListenerAdapter {
         // TODO: better way to extract 'key'
         String submissionId = channelStr.substring(channelStr.lastIndexOf('/') + 1);
         String msg = new String(message.getBody());
-        log.info("{} {} {}", patternStr, channelStr, msg);
+        log.info("RedisListenHandler - {} {} {}", patternStr, channelStr, msg);
         ConcurrentHashMap<String, WebSocketSender> webSocketSenderMap = submissionIdToSenderMap.get(submissionId);
         if (webSocketSenderMap != null) {
             webSocketSenderMap.forEach((k, v) -> {
+                log.info("sendData - ws");
                 v.sendData(msg);
             });
         }

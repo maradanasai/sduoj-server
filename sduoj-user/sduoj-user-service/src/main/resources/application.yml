@@ -1,0 +1,96 @@
+sduoj:
+  site:
+    copyright: "2020-2021 &copy; School of Computer Science and Technology, Shandong University"
+  mail:
+    enable: false   # 如果不需要发送邮件进行注册，改变该值关闭即可
+    username: yourMailUserName
+    password: yourPassword
+    host: smtp.163.com
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: false
+  user:
+    verificationExpire: 1200
+    verifyEmailUrlPrefix: http://ip/register?token=
+    verifyEmailSubject: "[SDUOJ] 账号邮箱验证邮件，请及时进行验证"
+    verifyEmailPattern: |
+      <html>
+        <head></head>
+        <body> 
+          <h2>Dear %s, </h2> 
+          <br /> 请点击以下链接对你的账号进行验证 
+          <br /> 
+          <div style="padding: 12px; background-color: #E0E0E0; color: #000000; font-weight: bold; font-size: 16px;" align="center"> 
+          <a href="%s">%s</a> 
+          </div>
+          <div style="text-align: center;padding: 50px 50px 24px;color: #515a6e;font-size: 14px;">
+          2020-2021 &copy; Shandong University
+          <br />[本邮件为系统自动发送，请勿直接回复]
+          </div>  
+        </body>
+      </html>
+    forgetPasswordUrlPrefix: http://ip/resetpass?token=
+    forgetPasswordEmailSubject: "[SDUOJ] 账号忘记密码邮件，你的账号申请重置密码成功，请及时进行重置"
+    forgetPasswordPattern: |
+      <html>
+        <head></head>
+        <body> 
+          <h2>Dear %s, </h2> 
+          <br /> 请点击以下链接对你的账号进行重置密码 
+          <br /> 
+          <div style="padding: 12px; background-color: #E0E0E0; color: #000000; font-weight: bold; font-size: 16px;" align="center"> 
+          <a href="%s">%s</a> 
+          </div>
+          <div style="text-align: center;padding: 50px 50px 24px;color: #515a6e;font-size: 14px;">
+          2020-2021 &copy; Shandong University
+          <br />[本邮件为系统自动发送，请勿直接回复]
+          </div>  
+        </body>
+      </html>
+    resetEmailSubject: "[SDUOJ] 账号重置邮箱，请及时进行验证"
+    resetEmailPattern: |
+      <html>
+        <head></head>
+        <body> 
+          <h2>Dear %s, </h2> 
+          <br /> 请点击以下链接对你的账号进行重设邮箱验证 
+          <br /> 
+          <div style="padding: 12px; background-color: #E0E0E0; color: #000000; font-weight: bold; font-size: 16px;" align="center"> 
+          <a href="%s">%s</a> 
+          </div>
+          <div style="text-align: center;padding: 50px 50px 24px;color: #515a6e;font-size: 14px;">
+          2020-2021 &copy; Shandong University
+          <br />[本邮件为系统自动发送，请勿直接回复]
+          </div>  
+        </body>
+      </html>
+
+server:
+  port: 19015
+spring:
+  application:
+    name: user-service
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: 'jdbc:mysql://localhost:3306/sduoj?useSSL=false'
+    username: root
+    password: root
+  redis:
+    host: localhost
+    password: ""
+    port: 6379
+    jedis:
+      pool:
+        max-idle: 8
+        max-wait: -1
+        min-idle: 0
+    timeout: 5000
+mybatis-plus:
+  type-aliases-package: cn.edu.sdu.qd.oj.**.entity
+
+user-service.ribbon.listOfServers: localhost:19015
+problem-service.ribbon.listOfServers: localhost:19013
+auth-service.ribbon.listOfServers: localhost:19010
+submit-service.ribbon.listOfServers: localhost:19014

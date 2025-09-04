@@ -19,7 +19,6 @@ import cn.edu.sdu.qd.oj.common.entity.UserSessionDTO;
 import cn.edu.sdu.qd.oj.gateway.util.SessionIdStrategyForceModifyUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -95,9 +94,9 @@ public class LoginFilter implements GlobalFilter, Ordered {
         // 鉴权
         if (userSessionDTO != null) {
             List<String> urlRoles = NonExceptionOptional.ofNullable(() -> permissionClient.urlToRoles(requestUrl.replace("/api", "")))
-                    .orElse(Lists.newArrayList());
+                    .orElse(Collections.emptyList());
             List<String> roles = NonExceptionOptional.ofNullable(() -> userClient.queryRolesById(userSessionDTO.getUserId()))
-                    .orElse(Lists.newArrayList());
+                    .orElse(Collections.emptyList());
 
             if (!urlRoles.contains(PermissionEnum.ALL.name) && Collections.disjoint(roles, urlRoles) && !isAllowPath) {
                 log.warn("have not permission {} {}", userSessionDTO, requestUrl);

@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  redis:
+    host: ${REDIS_HOST}
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
+
+user-service.ribbon.listOfServers: ${USER_SERVICE_URL}
+problem-service.ribbon.listOfServers: ${PROBLEM_SERVICE_URL}
+auth-service.ribbon.listOfServers: ${AUTH_SERVICE_URL}

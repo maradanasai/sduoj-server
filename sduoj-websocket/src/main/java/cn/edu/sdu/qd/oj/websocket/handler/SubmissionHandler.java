@@ -70,7 +70,7 @@ public class SubmissionHandler implements WebSocketHandler {
                         return;
                     }
                     String messageText = msg.getPayloadAsText();
-                    log.info("[submission] id: {} text: {}", sender.getId(), messageText);
+                    log.info("WS - [submission] id: {} text: {}", sender.getId(), messageText);
                     List<String> submissionIdHex = JSON.parseObject(messageText, new TypeReference<List<String>>() {});
                     for (String idHex : submissionIdHex) {
                         if (sender.addListening(idHex)) {

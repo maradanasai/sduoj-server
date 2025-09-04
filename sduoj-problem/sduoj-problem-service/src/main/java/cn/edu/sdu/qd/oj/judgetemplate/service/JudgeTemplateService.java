@@ -10,7 +10,7 @@
 
 package cn.edu.sdu.qd.oj.judgetemplate.service;
 
-import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
+// import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
 import cn.edu.sdu.qd.oj.common.entity.PageResult;
 import cn.edu.sdu.qd.oj.common.entity.UserSessionDTO;
 import cn.edu.sdu.qd.oj.common.enums.ApiExceptionEnum;
@@ -66,12 +66,12 @@ public class JudgeTemplateService {
                                                        UserSessionDTO userSessionDTO) {
         LambdaQueryChainWrapper<JudgeTemplateManageListDO> query = judgeTemplateManageListDao.lambdaQuery();
         // 超级管理员能查所有的，其他只查 public 或自己的
-        if (PermissionEnum.SUPERADMIN.notIn(userSessionDTO)) {
+        /*if (PermissionEnum.SUPERADMIN.notIn(userSessionDTO)) {
             Long userId = Optional.ofNullable(userSessionDTO).map(UserSessionDTO::getUserId).orElse(null);
             query.and(o1 -> o1.eq(JudgeTemplateManageListDO::getIsPublic, 1)
                               .or(o2 -> o2.eq(JudgeTemplateManageListDO::getIsPublic, 0)
                                           .and(o3 -> o3.eq(JudgeTemplateManageListDO::getUserId, userId))));
-        }
+        }*/
         Optional.of(reqDTO).map(JudgeTemplatePageReqDTO::getTitle).filter(StringUtils::isNotEmpty).ifPresent(title -> {
             query.likeRight(JudgeTemplateManageListDO::getTitle, title);
         });
@@ -91,8 +91,8 @@ public class JudgeTemplateService {
     public void update(JudgeTemplateDTO judgeTemplateDTO, UserSessionDTO userSessionDTO) {
         JudgeTemplateDO originalJudgeTemplateDO = judgeTemplateDao.getById(judgeTemplateDTO.getId());
         AssertUtils.notNull(originalJudgeTemplateDO, ApiExceptionEnum.JUDGETEMPLATE_NOT_FOUND);
-        AssertUtils.isTrue(userSessionDTO.userIdEquals(originalJudgeTemplateDO.getUserId())
-                || PermissionEnum.SUPERADMIN.in(userSessionDTO), ApiExceptionEnum.USER_NOT_MATCHING);
+        /*AssertUtils.isTrue(userSessionDTO.userIdEquals(originalJudgeTemplateDO.getUserId())
+                || PermissionEnum.SUPERADMIN.in(userSessionDTO), ApiExceptionEnum.USER_NOT_MATCHING);*/
         // 构造更新器
         JudgeTemplateDO judgeTemplateDO = judgeTemplateConverter.from(judgeTemplateDTO);
         judgeTemplateDO.setVersion(originalJudgeTemplateDO.getVersion());
@@ -126,12 +126,12 @@ public class JudgeTemplateService {
             JudgeTemplateManageListDO::getComment
         ).likeRight(JudgeTemplateManageListDO::getTitle, title);
         // 超级管理员能查所有的，其他只查 public 或自己的
-        if (PermissionEnum.SUPERADMIN.notIn(userSessionDTO)) {
+        /*if (PermissionEnum.SUPERADMIN.notIn(userSessionDTO)) {
             Long userId = Optional.ofNullable(userSessionDTO).map(UserSessionDTO::getUserId).orElse(null);
             query.and(o1 -> o1.eq(JudgeTemplateManageListDO::getIsPublic, 1)
                     .or(o2 -> o2.eq(JudgeTemplateManageListDO::getIsPublic, 0)
                             .and(o3 -> o3.eq(JudgeTemplateManageListDO::getUserId, userId))));
-        }
+        }*/
         return Optional.ofNullable(judgeTemplateManageListConverter.to(query.list())).orElse(Lists.newArrayList());
     }
 
