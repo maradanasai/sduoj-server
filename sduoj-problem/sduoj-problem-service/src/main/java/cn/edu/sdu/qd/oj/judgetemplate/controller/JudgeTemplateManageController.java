@@ -10,7 +10,7 @@
 
 package cn.edu.sdu.qd.oj.judgetemplate.controller;
 
-import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
+// import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
 import cn.edu.sdu.qd.oj.common.annotation.UserSession;
 import cn.edu.sdu.qd.oj.common.entity.ApiResponseBody;
 import cn.edu.sdu.qd.oj.common.entity.PageResult;
@@ -48,12 +48,12 @@ public class JudgeTemplateManageController {
     public JudgeTemplateDTO query(@RequestParam("id") Long id,
                                   @UserSession UserSessionDTO userSessionDTO) {
         JudgeTemplateDTO judgeTemplateDTO = judgeTemplateService.query(id);
-        if (PermissionEnum.SUPERADMIN.in(userSessionDTO)) {
+        /*if (PermissionEnum.SUPERADMIN.in(userSessionDTO)) {
             return judgeTemplateDTO;
         }
         if (!userSessionDTO.userIdEquals(judgeTemplateDTO.getUserId())) {
             throw new ApiException(ApiExceptionEnum.USER_NOT_MATCHING);
-        }
+        }*/
         return judgeTemplateDTO;
     }
 

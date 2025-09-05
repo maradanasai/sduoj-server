@@ -10,7 +10,7 @@
 
 package cn.edu.sdu.qd.oj.user.controller;
 
-import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
+//import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
 import cn.edu.sdu.qd.oj.common.annotation.UserSession;
 import cn.edu.sdu.qd.oj.common.entity.ApiResponseBody;
 import cn.edu.sdu.qd.oj.common.entity.PageResult;
@@ -55,10 +55,10 @@ public class UserManageController {
     public Void update(@RequestBody UserManageUpdateReqDTO reqDTO,
                        @UserSession UserSessionDTO userSessionDTO) {
         // superadmin 才能改密码+改权限
-        if (PermissionEnum.SUPERADMIN.notIn(userSessionDTO)) {
+        /*if (PermissionEnum.SUPERADMIN.notIn(userSessionDTO)) {
             reqDTO.setPassword(null);
             reqDTO.setRoles(null);
-        }
+        }*/
         userManageService.update(reqDTO);
         return null;
     }
@@ -75,7 +75,7 @@ public class UserManageController {
     @ApiResponseBody
     public Void delete(@RequestBody List<String> usernameList,
                        @UserSession UserSessionDTO userSessionDTO) {
-        AssertUtils.isTrue(PermissionEnum.SUPERADMIN.in(userSessionDTO), ApiExceptionEnum.USER_NOT_MATCHING);
+        //AssertUtils.isTrue(PermissionEnum.SUPERADMIN.in(userSessionDTO), ApiExceptionEnum.USER_NOT_MATCHING);
         userManageService.delete(usernameList);
         return null;
     }

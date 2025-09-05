@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  redis:
+    host: ${REDIS_HOST}
+sduoj:
+  mail:
+    enable: false   # 如果不需要发送邮件进行注册，改变该值关闭即可
+    username: yourMailUserName
+    password: yourPassword
+    host: smtp.163.com
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: false
+
+
+user-service.ribbon.listOfServers: ${USER_SERVICE_URL}
+problem-service.ribbon.listOfServers: ${PROBLEM_SERVICE_URL}
+auth-service.ribbon.listOfServers: ${AUTH_SERVICE_URL}
+submit-service.ribbon.listOfServers: ${SUBMIT_SERVICE_URL}

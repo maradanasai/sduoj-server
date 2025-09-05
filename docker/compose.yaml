@@ -1,0 +1,129 @@
+name: 'sduoj-server-stack'
+
+services:
+  sduoj-auth:
+    container_name: sduoj-auth
+    image: codingmaxima/sduoj-auth:1.0
+    environment:
+      SPRING_PROFILES_ACTIVE: prd
+    env_file:
+      - ./sduoj_stack_secrets.env
+    ports:
+      - "19010:19010"
+    networks:
+      - sduoj-stack-net
+
+  sduoj-contest:
+    container_name: sduoj-contest
+    image: codingmaxima/sduoj-contest:1.0
+    environment:
+      SPRING_PROFILES_ACTIVE: prd
+    env_file:
+      - ./sduoj_stack_secrets.env
+    ports:
+      - "19011:19011"
+    networks:
+      - sduoj-stack-net
+
+  sduoj-filesys:
+    container_name: sduoj-filesys
+    image: codingmaxima/sduoj-filesys:1.0
+    environment:
+      SPRING_PROFILES_ACTIVE: prd
+    env_file:
+      - ./sduoj_stack_secrets.env
+    ports:
+      - "19012:19012"
+    networks:
+      - sduoj-stack-net
+
+  sduoj-gateway:
+    container_name: sduoj-gateway
+    image: codingmaxima/sduoj-gateway:1.0
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: prd
+    env_file:
+      - ./sduoj_stack_secrets.env
+    networks:
+      - sduoj-stack-net
+
+  sduoj-problem:
+    container_name: sduoj-problem
+    image: codingmaxima/sduoj-problem:1.0
+    environment:
+      SPRING_PROFILES_ACTIVE: prd
+    env_file:
+      - ./sduoj_stack_secrets.env
+    ports:
+      - "19013:19013"
+    networks:
+      - sduoj-stack-net
+
+  sduoj-submit:
+    container_name: sduoj-submit
+    image: codingmaxima/sduoj-submit:1.0
+    environment:
+      SPRING_PROFILES_ACTIVE: prd
+    env_file:
+      - ./sduoj_stack_secrets.env
+    ports:
+      - "19014:19014"
+    networks:
+      - sduoj-stack-net
+
+  sduoj-user:
+    container_name: sduoj-user
+    image: codingmaxima/sduoj-user:1.0
+    environment:
+      SPRING_PROFILES_ACTIVE: prd
+    env_file:
+      - ./sduoj_stack_secrets.env
+    ports:
+      - "19015:19015"
+    networks:
+      - sduoj-stack-net
+
+  sduoj-websocket:
+    container_name: sduoj-websocket
+    image: codingmaxima/sduoj-websocket:1.0
+    environment:
+      SPRING_PROFILES_ACTIVE: prd
+    env_file:
+      - ./sduoj_stack_secrets.env
+    ports:
+      - "19016:19016"
+    networks:
+      - sduoj-stack-net
+
+  sduoj-judger:
+    container_name: sduoj-judger
+    image: codingmaxima/sduoj-judger:1.0-action
+    environment:
+      SPRING_PROFILES_ACTIVE: prd
+    env_file:
+      - ./sduoj_stack_secrets.env
+    networks:
+      - sduoj-stack-net
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:management
+    env_file:
+      - ./sduoj_stack_secrets.env
+    environment:
+      RABBITMQ_DEFAULT_USER: sduoj
+      RABBITMQ_DEFAULT_PASS: sduoj
+#      RABBITMQ_DEFAULT_VHOST: /sduoj
+    networks:
+      - sduoj-stack-net
+
+  redis:
+    container_name: redis
+    image: redis
+    networks:
+      - sduoj-stack-net
+
+networks:
+  sduoj-stack-net:

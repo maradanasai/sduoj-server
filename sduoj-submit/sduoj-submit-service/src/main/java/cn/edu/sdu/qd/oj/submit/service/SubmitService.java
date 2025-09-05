@@ -10,7 +10,7 @@
 
 package cn.edu.sdu.qd.oj.submit.service;
 
-import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
+//import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
 import cn.edu.sdu.qd.oj.common.entity.PageResult;
 import cn.edu.sdu.qd.oj.common.entity.UserSessionDTO;
 import cn.edu.sdu.qd.oj.common.enums.ApiExceptionEnum;
@@ -230,7 +230,7 @@ public class SubmitService {
         List<Long> privateProblemIdList = contestId != 0 ? Lists.newArrayList() :
             problemClient.queryPrivateProblemIdList(Optional.ofNullable(userSessionDTO).map(UserSessionDTO::getUserId).orElse(null));
 
-        if (CollectionUtils.isNotEmpty(privateProblemIdList) && PermissionEnum.SUPERADMIN.notIn(userSessionDTO)) {
+        if (CollectionUtils.isNotEmpty(privateProblemIdList)/* && PermissionEnum.SUPERADMIN.notIn(userSessionDTO)*/) {
             query.notIn(SubmissionDO::getProblemId, privateProblemIdList);
         }
 

@@ -10,7 +10,7 @@
 
 package cn.edu.sdu.qd.oj.checkpoint.service;
 
-import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
+//import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
 import cn.edu.sdu.qd.oj.checkpoint.client.FilesysClient;
 import cn.edu.sdu.qd.oj.checkpoint.converter.CheckpointConverter;
 import cn.edu.sdu.qd.oj.checkpoint.converter.CheckpointManageListConverter;
@@ -101,7 +101,7 @@ public class CheckpointManageService {
                 ProblemDO::getCheckpointCases,
                 ProblemDO::getUserId
         ).eq(ProblemDO::getProblemCode, problemCode).one();
-        AssertUtils.isTrue(userSessionDTO.userIdEquals(problemDO.getUserId()) || PermissionEnum.SUPERADMIN.in(userSessionDTO),
+        AssertUtils.isTrue(userSessionDTO.userIdEquals(problemDO.getUserId()) /*|| PermissionEnum.SUPERADMIN.in(userSessionDTO)*/,
                            ApiExceptionEnum.USER_NOT_MATCHING, "(不是出题人或超管无法看测试数据)");
         return getCheckpoints(problemDO);
     }

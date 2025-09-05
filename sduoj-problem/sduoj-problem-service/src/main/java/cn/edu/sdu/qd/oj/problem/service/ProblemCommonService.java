@@ -10,7 +10,7 @@
 
 package cn.edu.sdu.qd.oj.problem.service;
 
-import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
+//import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
 import cn.edu.sdu.qd.oj.common.converter.BaseConvertUtils;
 import cn.edu.sdu.qd.oj.common.entity.UserSessionDTO;
 import cn.edu.sdu.qd.oj.problem.dao.ProblemDao;
@@ -107,7 +107,7 @@ public class ProblemCommonService {
         if (userSessionDTO == null) {
             return false;
         }
-        return PermissionEnum.SUPERADMIN.in(userSessionDTO) ||
+        return /*PermissionEnum.SUPERADMIN.in(userSessionDTO) ||*/
                 userSessionDTO.userIdEquals(problemOwnerId);
     }
 

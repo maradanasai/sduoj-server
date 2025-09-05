@@ -22,8 +22,9 @@ import cn.edu.sdu.qd.oj.common.util.SnowflakeIdWorker;
 import cn.edu.sdu.qd.oj.filesys.dto.BinaryFileUploadReqDTO;
 import cn.edu.sdu.qd.oj.filesys.dto.FileDTO;
 import cn.edu.sdu.qd.oj.filesys.dto.PlainFileDownloadDTO;
-import com.alibaba.nacos.common.utils.Md5Utils;
+//import com.alibaba.nacos.common.utils.Md5Utils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,8 +144,8 @@ public class CheckpointFileService {
                 BinaryFileUploadReqDTO.builder().bytes(inputBytes).size((long) inputBytes.length).filename(snowflaskId + ".in").build(),
                 BinaryFileUploadReqDTO.builder().bytes(outputBytes).size((long) outputBytes.length).filename(snowflaskId + ".out").build()
         );
-        String inputMd5 = Md5Utils.getMD5(inputBytes);
-        String outputMd5 = Md5Utils.getMD5(outputBytes);
+        String inputMd5 = new String(DigestUtils.getMd5Digest().digest(inputBytes));
+        String outputMd5 = new String(DigestUtils.getMd5Digest().digest(outputBytes));
 
         CheckpointDO checkpointDO = CheckpointDO.builder()
                 .checkpointId(snowflaskId)

@@ -11,8 +11,6 @@ dependencies {
     implementation(project(":sduoj-submit:sduoj-submit-interface"))
 
     /* 3-rd party dependency */
-    implementation("com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config")
-    implementation("com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
     implementation("org.springframework.boot:spring-boot-starter-amqp")

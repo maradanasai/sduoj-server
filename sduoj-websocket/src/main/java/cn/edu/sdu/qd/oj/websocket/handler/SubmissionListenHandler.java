@@ -61,6 +61,7 @@ public class SubmissionListenHandler {
         }
 
         // 在redis中广播这条消息
+        log.info("Redis publish - {}, msg - {}", SubmissionBizContant.getRedisChannelKey(submissionIdHex), msg);
         redisUtils.publish(SubmissionBizContant.getRedisChannelKey(submissionIdHex), msg);
     }
 }

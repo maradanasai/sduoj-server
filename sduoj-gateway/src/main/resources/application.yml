@@ -1,0 +1,119 @@
+sduoj:
+  cookie:
+    maxAge: 31536000
+  filter:
+    allowPaths: # 完全匹配
+      - /api/site/
+      - /api/user/login
+      - /api/user/logout
+      - /api/user/register
+      - /api/user/verifyEmail
+      - /api/user/forgetPassword
+      - /api/user/resetPassword
+      - /api/user/getCaptcha
+      - /api/user/isExist
+      - /api/problem/query
+      - /api/problem/list
+      - /api/submit/list
+      - /api/submit/query
+      - /api/manage/auth/login
+      - /api/manage/auth/logout
+      - /api/judger/auth/login
+      - /api/judger/auth/logout
+      - /api/contest/list
+      - /api/contest/queryUpcomingContest
+      - /ws/submission
+      - /api/filesys/download
+
+server:
+  port: 8080
+spring:
+  application:
+    name: gateway
+  session:
+    store-type: redis
+    timeout: 129600
+    redis:
+      namespace: cache
+  redis:
+    host: localhost
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 1
+    timeout: 5000
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - OPTIONS
+              - GET
+              - POST
+              - HEAD
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+            maxAge: 86400
+      routes:
+        # 用户服务
+        - id: user-service
+          uri: http://localhost:19015
+          predicates:
+            - Path=/api/manage/user/**, /api/judger/user/**, /api/user/**, /api/site/**
+          filters:
+            - StripPrefix=1
+        # 鉴权服务
+        - id: auth-service
+          uri: http://localhost:19010
+          predicates:
+            - Path=/api/manage/auth/**, /api/judger/auth/**, /api/auth/**
+          filters:
+            - StripPrefix=1
+        # 题库服务 / 检查点服务 / 标签服务 / 评测模板服务
+        - id: problem-service
+          uri: http://localhost:19013
+          predicates:
+            - Path=/api/manage/problem/**, /api/judger/problem/**, /api/problem/**, /api/manage/checkpoint/**, /api/judger/checkpoint/**, /api/checkpoint/**, /api/manage/tag/**, /api/judger/tag/**, /api/tag/**, /api/manage/judgetemplate/**, /api/judgetemplate/**
+          filters:
+            - StripPrefix=1
+        # 提交服务
+        - id: submit-service
+          uri: http://localhost:19014
+          predicates:
+            - Path=/api/manage/submit/**, /api/judger/submit/**, /api/submit/**
+          filters:
+            - StripPrefix=1
+        # WebSocket 服务
+        - id: websocket-service
+          uri: http://localhost:19016
+          predicates:
+            - Path=/ws/**
+          filters:
+            - StripPrefix=1
+        # 比赛
+        - id: contest-service
+          uri: lb://contest-service
+          predicates:
+            - Path=/api/manage/contest/**, /api/judger/contest/**, /api/contest/**
+          filters:
+            - StripPrefix=1
+        # 文件系统
+        - id: filesys-service
+          uri: http://localhost:19012
+          predicates:
+            - Path=/api/filesys/**
+          filters:
+            - StripPrefix=1
+
+
+user-service.ribbon.listOfServers: localhost:19015
+problem-service.ribbon.listOfServers: localhost:19013
+auth-service.ribbon.listOfServers: localhost:19010
+submit-service.ribbon.listOfServers: localhost:19014

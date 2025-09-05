@@ -12,10 +12,9 @@ dependencies {
     implementation(project(":sduoj-user:sduoj-user-interface"))
 
     /* 3-rd party dependency */
-    implementation("com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config")
-    implementation("com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery")
     implementation("org.springframework.cloud:spring-cloud-starter-gateway")
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-ribbon")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-configuration-processor")
     implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
@@ -24,6 +23,7 @@ dependencies {
     implementation("cn.hutool:hutool-core")
     implementation("com.github.ben-manes.caffeine:caffeine")
     implementation("org.javassist:javassist")
+    api("com.alibaba:fastjson")
 }
 
 group = "cn.edu.sdu.qd.oj.gateway"

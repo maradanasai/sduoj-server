@@ -12,6 +12,7 @@ dependencies {
     /* 2-nd party dependency */
 
     /* 3-rd party dependency */
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-ribbon")
 }
 
 group = "cn.edu.sdu.qd.oj.filesys"

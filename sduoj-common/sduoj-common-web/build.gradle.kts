@@ -8,12 +8,9 @@ dependencies {
     api(project(":sduoj-common:sduoj-common-util"))
 
     /* 2-nd party dependency */
-    api(project(":sduoj-auth:sduoj-auth-interface"))
 
     /* 3-rd party dependency */
     api("com.alibaba:fastjson")
-    api("com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config")
-    api("com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery")
     api("org.springframework.boot:spring-boot-starter-logging")
     api("org.springframework.boot:spring-boot-starter-web")
     api("org.springframework.boot:spring-boot-starter-actuator")

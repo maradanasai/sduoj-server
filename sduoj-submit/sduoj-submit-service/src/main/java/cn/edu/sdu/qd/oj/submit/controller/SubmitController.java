@@ -10,7 +10,7 @@
 
 package cn.edu.sdu.qd.oj.submit.controller;
 
-import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
+//import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
 import cn.edu.sdu.qd.oj.common.annotation.RealIp;
 import cn.edu.sdu.qd.oj.common.annotation.UserSession;
 import cn.edu.sdu.qd.oj.common.entity.ApiResponseBody;
@@ -70,9 +70,9 @@ public class SubmitController {
         long submissionId = Long.valueOf(submissionIdHex, 16);
         SubmissionDTO submissionDTO = this.submitService.queryById(submissionId, 0);
         // 超级管理员可以看所有代码
-        if (PermissionEnum.SUPERADMIN.in(userSessionDTO)) {
+       /* if (PermissionEnum.SUPERADMIN.in(userSessionDTO)) {
             return submissionDTO;
-        }
+        }*/
         // 他人查看脱敏
         if (submissionDTO != null && !Optional.ofNullable(userSessionDTO)
                                               .map(o -> o.userIdEquals(submissionDTO.getUserId()))
@@ -104,7 +104,7 @@ public class SubmitController {
     @ApiResponseBody
     public Void rejudge(@RequestBody @NotNull String[] submissionIdHexs,
                         @UserSession UserSessionDTO userSessionDTO) {
-        AssertUtils.isTrue(PermissionEnum.ADMIN.in(userSessionDTO), ApiExceptionEnum.USER_NOT_MATCHING);
+        /*AssertUtils.isTrue(PermissionEnum.ADMIN.in(userSessionDTO), ApiExceptionEnum.USER_NOT_MATCHING);*/
         List<Long> submissionIdList = Arrays.stream(submissionIdHexs).map(hex -> Long.valueOf(hex, 16)).collect(Collectors.toList());
         submitService.rejudge(submissionIdList);
         return null;
@@ -115,7 +115,7 @@ public class SubmitController {
     public Void invalidateSubmission(@RequestParam("submissionId") String submissionIdHex,
                                      @UserSession UserSessionDTO userSessionDTO) {
         long submissionId = Long.valueOf(submissionIdHex, 16);
-        AssertUtils.isTrue(PermissionEnum.ADMIN.in(userSessionDTO), ApiExceptionEnum.USER_NOT_MATCHING);
+        /*AssertUtils.isTrue(PermissionEnum.ADMIN.in(userSessionDTO), ApiExceptionEnum.USER_NOT_MATCHING);*/
         submitService.invalidateSubmission(submissionId, 0);
         return null;
     }

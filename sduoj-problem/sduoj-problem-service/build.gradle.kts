@@ -11,12 +11,13 @@ dependencies {
     implementation(project(":sduoj-problem:sduoj-problem-interface"))
 
     /* 2-nd party dependency */
-    implementation(project(":sduoj-user:sduoj-user-interface"))
+    //implementation(project(":sduoj-user:sduoj-user-interface"))
     implementation(project(":sduoj-filesys:sduoj-filesys-interface"))
     implementation(project(":sduoj-submit:sduoj-submit-interface"))
 
     /* 3-rd party dependency */
     implementation("org.springframework.boot:spring-boot-starter-amqp")
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-ribbon")
 }
 
 group = "cn.edu.sdu.qd.oj.problem"

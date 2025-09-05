@@ -10,7 +10,7 @@
 
 package cn.edu.sdu.qd.oj.contest.service;
 
-import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
+//import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
 import cn.edu.sdu.qd.oj.common.entity.PageResult;
 import cn.edu.sdu.qd.oj.common.entity.UserSessionDTO;
 import cn.edu.sdu.qd.oj.common.enums.ApiExceptionEnum;
@@ -247,11 +247,11 @@ public class ContestService {
         LambdaQueryChainWrapper<ContestListDO> query = contestListDao.lambdaQuery()
                 .orderByDesc(ContestListDO::getGmtStart);
         if (userSessionDTO != null) {
-            if (PermissionEnum.SUPERADMIN.notIn(userSessionDTO)) {
+            //if (PermissionEnum.SUPERADMIN.notIn(userSessionDTO)) {
                 query.and(o1 -> o1.eq(ContestListDO::getIsPublic, 1)
                                   .or(o2 -> o2.eq(ContestListDO::getIsPublic, 0)
                                               .and(o3 -> o3.eq(ContestListDO::getUserId, userSessionDTO.getUserId()))));
-            }
+            //}
         } else {
             query.and(o1 -> o1.eq(ContestListDO::getIsPublic, 1));
         }

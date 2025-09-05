@@ -10,7 +10,6 @@
 
 package cn.edu.sdu.qd.oj.contest.service;
 
-import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
 import cn.edu.sdu.qd.oj.common.entity.UserSessionDTO;
 import cn.edu.sdu.qd.oj.common.enums.ApiExceptionEnum;
 import cn.edu.sdu.qd.oj.common.exception.ApiException;

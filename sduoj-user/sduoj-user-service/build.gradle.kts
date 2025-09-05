@@ -15,6 +15,7 @@ dependencies {
     /* 3-rd party dependency */
     implementation("org.springframework.boot:spring-boot-starter-mail")
     implementation("org.springframework.boot:spring-boot-starter-amqp")
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-ribbon")
 }
 
 group = "cn.edu.sdu.qd.oj.user"

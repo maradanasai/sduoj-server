@@ -10,7 +10,7 @@
 
 package cn.edu.sdu.qd.oj.problem.service;
 
-import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
+//import cn.edu.sdu.qd.oj.auth.enums.PermissionEnum;
 import cn.edu.sdu.qd.oj.common.entity.UserSessionDTO;
 import cn.edu.sdu.qd.oj.common.util.AssertUtils;
 import cn.edu.sdu.qd.oj.common.entity.PageResult;
@@ -90,7 +90,7 @@ public class ProblemService {
         AssertUtils.notNull(problemDO, ApiExceptionEnum.PROBLEM_NOT_FOUND);
 
         // 非公开题只能出题者和超管查询
-        AssertUtils.isTrue(problemDO.getIsPublic() == 1 || problemDO.getUserId().equals(userId) || PermissionEnum.SUPERADMIN.in(userSessionDTO), ApiExceptionEnum.USER_NOT_MATCHING);
+        AssertUtils.isTrue(problemDO.getIsPublic() == 1 || problemDO.getUserId().equals(userId) /*|| PermissionEnum.SUPERADMIN.in(userSessionDTO)*/, ApiExceptionEnum.USER_NOT_MATCHING);
 
         // 查询题目描述
         ProblemDescriptionDO problemDescriptionDO = problemDescriptionDao.lambdaQuery()
@@ -101,8 +101,8 @@ public class ProblemService {
         if (problemDescriptionDO != null &&
             problemDescriptionDO.getIsPublic() == 0 &&
             !problemDescriptionDO.getId().equals(problemDO.getDefaultDescriptionId()) &&
-            !problemDescriptionDO.getUserId().equals(userId) &&
-                 PermissionEnum.SUPERADMIN.notIn(userSessionDTO)) {
+            !problemDescriptionDO.getUserId().equals(userId) /*&&
+                 PermissionEnum.SUPERADMIN.notIn(userSessionDTO)*/) {
             problemDescriptionDO = null;
         }
 
@@ -118,11 +118,11 @@ public class ProblemService {
         // 查询，若非 superadmin 则进行过滤，过滤掉非公开非自己非默认的题面，并按照 descriptionId 排序
         List<ProblemDescriptionDO> problemDescriptionDOList = descriptionListQuery.list();
         problemDescriptionDOList.sort(ProblemDescriptionDO::compareById);
-        if (PermissionEnum.SUPERADMIN.notIn(userSessionDTO)) {
+        /*if (PermissionEnum.SUPERADMIN.notIn(userSessionDTO)) {
             problemDescriptionDOList = problemDescriptionDOList.stream()
                 .filter(o -> o.getIsPublic() == 1 || (o.getIsPublic() == 0 && o.getUserId().equals(userId)) || o.getId().equals(problemDO.getDefaultDescriptionId()))
                 .collect(Collectors.toList());
-        }
+        }*/
 
         // 查询 problemCase
         List<ProblemCaseDTO> problemCaseDTOList = problemExtensionSerivce.queryProblemCase(problemDO.getProblemId());
@@ -161,7 +161,7 @@ public class ProblemService {
                 ProblemDO::getSubmitNum,
                 ProblemDO::getAcceptNum
         );
-        if (PermissionEnum.SUPERADMIN.notIn(userSessionDTO)) {
+        /*if (PermissionEnum.SUPERADMIN.notIn(userSessionDTO)) {
             if (userSessionDTO != null) {
                 query.and(o1 -> o1.eq(ProblemDO::getIsPublic, 1)
                       .or(o2 -> o2.eq(ProblemDO::getIsPublic, 0)
@@ -169,7 +169,7 @@ public class ProblemService {
             } else {
                 query.eq(ProblemDO::getIsPublic, 1);
             }
-        }
+        }*/
         Optional.ofNullable(reqDTO.getSortBy()).filter(StringUtils::isNotBlank).ifPresent(sortBy -> {
             switch (sortBy) {
                 case "acceptNum":

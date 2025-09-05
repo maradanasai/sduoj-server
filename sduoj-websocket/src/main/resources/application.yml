@@ -1,0 +1,15 @@
+server:
+  port: 19016
+spring:
+  application:
+    name: websocket-service
+  redis:
+    host: localhost
+    password: ""
+    port: 6379
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
+    publisher-confirms: true

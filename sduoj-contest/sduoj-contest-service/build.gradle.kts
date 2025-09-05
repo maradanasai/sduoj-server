@@ -18,6 +18,7 @@ dependencies {
 
     /* 3-rd party dependency */
     implementation("com.alibaba:easyexcel")
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-ribbon")
 }
 
 group = "cn.edu.sdu.qd.oj.contest"
