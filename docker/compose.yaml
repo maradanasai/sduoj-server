@@ -32,6 +32,8 @@ services:
       SPRING_PROFILES_ACTIVE: prd
     env_file:
       - ./sduoj_stack_secrets.env
+    volumes:
+      - ./data/sduoj/filesys/:/root/sduoj/filesys/
     ports:
       - "19012:19012"
     networks:
